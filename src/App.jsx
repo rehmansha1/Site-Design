@@ -270,7 +270,7 @@ cartOnOpen()
             <button className="filter-pill" onClick={()=>{
               document.getElementById("AttachedDropDown").classList.toggle("visible");
             }}>
-              <AttachedDropDown />
+              <AttachedDropDown component = {"price"}/>
               Price <ChevronDown />
             </button>
           </div>

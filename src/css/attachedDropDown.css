@@ -19,3 +19,76 @@
     z-index: 11111111111;
     opacity: 1;
 }
+ @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap');
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  .price-range-wrapper {
+    font-family: 'DM Sans', sans-serif;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 20px 16px;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    display: inline-flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 320px;
+  }
+
+  .price-inputs-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .price-input-box {
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 8px 12px;
+    gap: 6px;
+    flex: 1;
+    transition: border-color 0.2s;
+    background: #fff;
+  }
+
+  .price-input-box:focus-within {
+    border-color: #4a4a4a;
+  }
+
+  .currency-symbol {
+    color: #555;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .price-input-box input {
+    border: none;
+    outline: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: #222;
+    width: 100%;
+    text-align: right;
+    background: transparent;
+    font-weight: 400;
+  }
+
+  .separator {
+    color: #aaa;
+    font-size: 13px;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .price-hint {
+    font-size: 12.5px;
+    color: #666;
+  }
