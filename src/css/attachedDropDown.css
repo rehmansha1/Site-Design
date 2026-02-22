@@ -1,0 +1,21 @@
+#AttachedDropDown{
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 0px;
+    width: 360px;
+    opacity: 0;
+    z-index: 1;
+    height: 0px;
+    transition: all 0.5s ease;  
+}
+#AttachedDropDown.visible{
+        padding: 10px;
+        height: 106px;
+    z-index: 11111111111;
+    opacity: 1;
+}
