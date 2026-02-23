@@ -1,0 +1,304 @@
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes popIn {
+  0%   { opacity: 0; transform: scale(0.85) translateY(20px); }
+  60%  { transform: scale(1.03) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes popOut {
+  0%   { opacity: 1; transform: scale(1) translateY(0); }
+  100% { opacity: 0; transform: scale(0.85) translateY(20px); }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 16px;
+  animation: fadeIn 0.2s ease forwards;
+}
+
+.overlay.closing {
+  animation: fadeOut 0.2s ease forwards;
+}
+
+/* Wrapper handles pop animation + perspective */
+.modalWrapper {
+  perspective: 1000px;
+  animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.modalWrapper.closing {
+  animation: popOut 0.2s ease forwards;
+}
+
+/* Modal handles ONLY the tilt — lerp in JS handles smoothing, no CSS transition needed */
+.modal {
+  background-color: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  max-width: 672px;
+  width: 100%;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  position: relative;
+  max-height: 600px;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.imageSection {
+  width: 40%;
+  flex-shrink: 0;
+  position: relative;
+  background-color: #f3f4f6;
+  min-height: 400px;
+}
+
+.mainImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+.thumbnailStrip {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 4px;
+  padding: 8px;
+}
+
+.thumbnail {
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.thumbnailImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.details {
+  flex: 1;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  overflow-y: auto;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn:hover {
+  color: #374151;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111827;
+  padding-right: 24px;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.sizeLabel {
+  font-size: 15px;
+  font-weight: 500;
+  color: #1f2937;
+  margin-bottom: 12px;
+}
+
+.sizeGrid {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sizeBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background-color: #fff;
+  color: #1f2937;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sizeBtn.active {
+  border-color: #000;
+  background-color: #000;
+  color: #fff;
+}
+
+.quantityRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.quantityControl {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.qtyBtn {
+  width: 40px;
+  height: 48px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #6b7280;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qtyBtn:hover {
+  background-color: #f9fafb;
+}
+
+.qtyDisplay {
+  width: 32px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  user-select: none;
+}
+
+.addToCartBtn {
+  flex: 1;
+  height: 48px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.addToCartBtn:hover {
+  background-color: #1f2937;
+}
+
+.addToCartBtn.added {
+  background-color: #1f2937;
+  cursor: default;
+}
+
+/* Slot that slides content vertically */
+.btnSlot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.btnContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  width: 100%;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity  0.35s ease;
+}
+
+/* Default state: "Add to cart" visible, "Added" hidden below */
+.btnSlot .btnDefault {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.btnSlot .btnAdded {
+  transform: translateY(0);
+  opacity: 0;
+  position: absolute;
+}
+
+/* Triggered state: slide "Add to cart" up, bring "Added" up from below */
+.addToCartBtn.added .btnDefault {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.addToCartBtn.added .btnAdded {
+  transform: translateY(0);
+  opacity: 1;
+  position: absolute;
+}
+
+.buyNowBtn {
+  width: 100%;
+  height: 48px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.buyNowBtn:hover {
+  background-color: #1f2937;
+}

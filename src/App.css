@@ -138,6 +138,7 @@
    justify-content: center;
    color: #1a1a1a;
    position: relative;
+   transition: opacity 0.5s;
  }
 
  .icon-btn svg {
@@ -282,7 +283,7 @@
  /* ── PRODUCTS GRID ── */
  .products-grid {
    display: grid;
-   grid-template-columns: repeat(5, 1fr);
+   grid-template-columns: repeat(4, 1fr);
    gap: 18px 16px;
  }
 
@@ -339,19 +340,21 @@
    font-weight: 400;
    color: #1a1a1a;
  }
- .cart-btn {
+.cart-btn {
   opacity: 0;
   position: absolute;
-  top: 85%;
-  left: 100%;
-  transition: all 0.3s;
+  right: 12px;
+  
+  bottom: 12px; /* or adjust to match your layout */
+  transform: translateX(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
 }
-.cart-btn.hovered{
-  opacity: 1;
-  left: 75%;
-}
-.cart-btn:hover{
 
+.cart-btn.hovered {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
 }
 #flyer {
     background: transparent;
@@ -363,3 +366,10 @@
 #flyer.animate {
     animation: flyToCart 1s forwards;
   }
+.icon-btn:hover ~ .icon-btn {
+  opacity: 0.5;
+}
+
+.icon-btn:has(~ .icon-btn:hover) {
+  opacity: 0.5;
+}

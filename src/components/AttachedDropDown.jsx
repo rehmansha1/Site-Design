@@ -22,8 +22,10 @@ const [min, setMin] = useState(0);
 
   return (
     <>
-    {component === "price" &&
-      <div className="price-range-wrapper" id = 'AttachedDropDown'>
+
+      <div className="price-range-wrapper AttachedDropDown">
+       {component == "price" && 
+        <>
         <div className="price-inputs-row">
           <div className="price-input-box">
             <span className="currency-symbol">₹</span>
@@ -49,8 +51,18 @@ const [min, setMin] = useState(0);
         <span className="price-hint">
           The highest price is Rs. {fmt(3000)}
         </span>
-      </div>
+        </>
 }
+{
+  component == "Availability"
+  &&
+  <div>
+    <div>Available</div>
+    <div>Out Of Stock</div>
+    </div>
+}
+      </div>
+
 </>
   );
 }

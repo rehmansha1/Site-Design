@@ -2,24 +2,47 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import Cart from "./components/Cart";
 import AttachedDropDown from "./components/AttachedDropDown";
+import SearchFile from "./components/SearchFile";
+import SmallCard from "./components/SmallCard";
 
 // ── ICONS ──
 const SearchIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <circle cx="11" cy="11" r="8" />
     <line x1="21" y1="21" x2="16.65" y2="16.65" />
   </svg>
 );
 
 const UserIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
     <circle cx="12" cy="7" r="4" />
   </svg>
 );
 
 const CartIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
     <line x1="3" y1="6" x2="21" y2="6" />
     <path d="M16 10a4 4 0 0 1-8 0" />
@@ -27,7 +50,14 @@ const CartIcon = () => (
 );
 
 const ChevronDown = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
     <polyline points="6 9 12 15 18 9" />
   </svg>
 );
@@ -66,22 +96,107 @@ const Logo = () => (
       strokeLinejoin="round"
       fill="none"
     />
-    <line x1="13" y1="13" x2="13" y2="42" stroke="#1a1a1a" strokeWidth="2" strokeLinecap="round" />
+    <line
+      x1="13"
+      y1="13"
+      x2="13"
+      y2="42"
+      stroke="#1a1a1a"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
   </svg>
 );
-const AddToCartIcon = ({ className, handleCick }) => (
-  <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className={className} onClick={
-    handleCick
-  }>
-    <circle cx="20" cy="20" r="20" fill="#2c2c2c" />
-    {/* Cart */}
-    <path d="M13 11L11 14v9a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 27 23v-9l-2-3z" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-    <line x1="11" y1="14" x2="27" y2="14" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-    <path d="M23 17a3 3 0 0 1-6 0" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-    {/* Plus */}
-    <text x="25" y="30" fill="#fff" fontSize="10" fontWeight="900" fontFamily="sans-serif">+</text>
-  </svg>
-);
+
+const AddToCartIcon = ({ className, handleClick }) => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      onClick={handleClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        backgroundColor: hovered ? "#2c2c2c" : "#ebebeb",
+        borderRadius: "999px",
+        padding: hovered ? "6px 16px 6px 6px" : "4px",
+        cursor: "pointer",
+        transition: "background-color 0.3s ease, padding 0.3s ease",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+      }}
+      className={className}
+    >
+      <svg
+        width="36"
+        height="36"
+        viewBox="0 0 40 40"
+        fill="none"
+        style={{ flexShrink: 0 }}
+      >
+        <circle
+          cx="20" cy="20" r="20"
+          fill={hovered ? "#444" : "#e0e0e0"}
+          style={{ transition: "fill 0.3s" }}
+        />
+        {/* Bag body */}
+        <path
+          d="M14 17h12l-1.5 9a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 14.5 26L13 17z"
+          stroke={hovered ? "#fff" : "#2c2c2c"}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          style={{ transition: "stroke 0.3s" }}
+        />
+        {/* Bag handle */}
+        <path
+          d="M16.5 17v-2a3.5 3.5 0 0 1 7 0v2"
+          stroke={hovered ? "#fff" : "#2c2c2c"}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+          style={{ transition: "stroke 0.3s" }}
+        />
+        {/* Plus icon */}
+        <line
+          x1="22" y1="22" x2="22" y2="27"
+          stroke={hovered ? "#fff" : "#2c2c2c"}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          style={{ transition: "stroke 0.3s" }}
+        />
+        <line
+          x1="19.5" y1="24.5" x2="24.5" y2="24.5"
+          stroke={hovered ? "#fff" : "#2c2c2c"}
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          style={{ transition: "stroke 0.3s" }}
+        />
+      </svg>
+
+      {/* "Add" text reveal */}
+      <span
+        style={{
+          color: "#fff",
+          fontSize: "15px",
+          fontWeight: "600",
+          fontFamily: "sans-serif",
+          maxWidth: hovered ? "60px" : "0px",
+          opacity: hovered ? 1 : 0,
+          overflow: "hidden",
+          transition: "max-width 0.3s ease, opacity 0.2s ease",
+        }}
+      >
+        Add
+      </span>
+    </div>
+  );
+};
+
 // ── PRODUCT DATA ──
 const products = [
   {
@@ -161,7 +276,8 @@ export default function App() {
   const [activeView, setActiveView] = useState("grid4");
   const [scrolled, setScrolled] = useState(false);
   const [hoveredId, setHoveredId] = useState(null);
-
+  const [openSearch, setOpenSearch] = useState(false);
+  const [openSmallCard, setOpenSmallCard] = useState(false);
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -177,41 +293,36 @@ export default function App() {
   const [origin, setOrigin] = useState({ x: 0, y: 0 });
   const [dest, setDest] = useState({ x: 0, y: 0 });
   const handleCick = (e, id) => {
+    const origin = document
+      .getElementsByClassName("cart-btn")
+      [id].getBoundingClientRect();
 
-    const origin = document.getElementsByClassName("cart-btn")[id].getBoundingClientRect();
-
-    const dest = document.getElementById("cart").getBoundingClientRect();
-
-    console.log(origin, dest);
-    const deltaX = dest.left - origin.left;
-    const deltaY = dest.top - origin.top;
-    const flyer = document.getElementById("flyer");
-    setOrigin({ x: origin.left, y: origin.top });
-    setDest({ x: dest.left, y: dest.top });
-    flyer.classList.add("animate");
-
-  }
- const cartOnOpen = () => { 
+    console.log("Origin coords:", origin);
+    setOpenSmallCard(true) 
+    console.log("Clicked add to cart for product id:", id);
+  };
+  const cartOnOpen = () => {
     const cart = document.getElementById("carty");
     cart.style.right = "0%";
     const overlay = document.getElementById("overlayForCartMenu");
     overlay.classList.add("appear");
-
-}
- const cartOnClose = () => { 
+  };
+  const cartOnClose = () => {
     const cart = document.getElementById("carty");
     cart.style.right = "-50%";
     const overlay = document.getElementById("overlayForCartMenu");
     overlay.classList.remove("appear");
-}
+  };
 
   return (
     <>
-<div id="overlayForCartMenu"></div>
-    <div id="cartMenu">
-      <Cart onClose = {cartOnClose}/>
 
-    </div>
+      <SearchFile isOpen={openSearch} onClose={() => setOpenSearch(false)} />
+      <SmallCard open={openSmallCard} setOpen={setOpenSmallCard} />
+      <div id="overlayForCartMenu"></div>
+      <div id="cartMenu">
+        <Cart onClose={cartOnClose} />
+      </div>
       {/* Announcement Bar */}
       <div id="flyer">
         <style>{`
@@ -222,7 +333,7 @@ export default function App() {
 
   }
 `}</style>
-</div>
+      </div>
       <div className={scrolled ? "ann-bar scrolled" : "ann-bar"}>
         Free gift with every prepaid order&nbsp;🎁
       </div>
@@ -241,15 +352,27 @@ export default function App() {
         </div>
 
         <div className="nav-right">
-          <button className="icon-btn" aria-label="Search">
+          <button
+            className="icon-btn"
+            aria-label="Search"
+            onClick={() => {
+              setOpenSearch(true);
+            }}
+          >
             <SearchIcon />
           </button>
           <button className="icon-btn" aria-label="Account">
             <UserIcon />
           </button>
-          <button className="icon-btn" aria-label="Cart" style={{ position: "relative" }} id="cart" onClick={()=>{
-cartOnOpen()
-          }}>
+          <button
+            className="icon-btn"
+            aria-label="Cart"
+            style={{ position: "relative" }}
+            id="cart"
+            onClick={() => {
+              cartOnOpen();
+            }}
+          >
             <CartIcon />
             <span className="cart-count">0</span>
           </button>
@@ -263,16 +386,49 @@ cartOnOpen()
         {/* Filter / Sort Row */}
         <div className="filter-row">
           <div className="filter-left">
-            <button className="filter-pill">
+            <div className="filter-pill">
+              <div
+                onClick={() => {
+                  document
+                    .querySelectorAll(".price-range-wrapper.AttachedDropDown")
+                    .forEach((e,index) => {
+                      if (e.classList.contains("visible") && index != 0) {
+                        e.classList.remove("visible");
+                      }
+                    });
+                  document
+                    .querySelectorAll(
+                      ".price-range-wrapper.AttachedDropDown",
+                    )[0]
+                    .classList.toggle("visible");
+                }}
+              >
+                Availability <ChevronDown />
+              </div>
+              <AttachedDropDown component={"price"} />
+            </div>
+            <div className="filter-pill">
+              <div
+                onClick={() => {
+                       document
+                    .querySelectorAll(".price-range-wrapper.AttachedDropDown")
+                    .forEach((e,index) => {
+                      if (e.classList.contains("visible") && index != 1) {
+                        e.classList.remove("visible");
+                      }
+                    });
+                  document
+                    .querySelectorAll(
+                      ".price-range-wrapper.AttachedDropDown",
+                    )[1]
+                    .classList.toggle("visible");
+                }}
+              >
+                Price <ChevronDown />
+              </div>
 
-              Availability <ChevronDown />
-            </button>
-            <button className="filter-pill" onClick={()=>{
-              document.getElementById("AttachedDropDown").classList.toggle("visible");
-            }}>
-              <AttachedDropDown component = {"price"}/>
-              Price <ChevronDown />
-            </button>
+              <AttachedDropDown component={"Availability"} />
+            </div>
           </div>
           <div className="filter-right">
             <span className="item-count">17 items</span>
@@ -301,19 +457,28 @@ cartOnOpen()
         {/* Products Grid */}
         <div className="products-grid">
           {products.map((p) => (
-            <div key={p.id} className="product-card">
+            <div key={p.id} className="product-card" onClick={()=>{
+              
+            }}>
               <div
                 className="product-img-box"
                 style={{ background: p.bg }}
                 onMouseEnter={() => setHoveredId(p.id)}
                 onMouseLeave={() => setHoveredId(null)}
+                onClick={(e) => handleCick(e, p.id)}
               >
                 <img src={p.img} alt={p.name} />
                 {p.soldOut && <span className="sold-badge">Sold out</span>}
 
-                {hoveredId === p.id ? (
-                  <AddToCartIcon className={"cart-btn hovered"} handleCick={(e) => handleCick(e, p.id)} />
-                ) : (<AddToCartIcon className={"cart-btn"} handleCick={() => { }} />
+                {true ? (
+                  <AddToCartIcon
+                    className={"cart-btn hovered"}
+                    
+                    handleCick={(e) => handleCick(e, p.id)}
+                  />
+                ) : (
+                  <AddToCartIcon className={"cart-btn"}                     handleCick={(e) => handleCick(e, p.id)}
+/>
                 )}
               </div>
               <div className="product-name">{p.name}</div>
