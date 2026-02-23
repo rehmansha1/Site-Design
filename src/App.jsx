@@ -278,6 +278,13 @@ export default function App() {
   const [hoveredId, setHoveredId] = useState(null);
   const [openSearch, setOpenSearch] = useState(false);
   const [openSmallCard, setOpenSmallCard] = useState(false);
+  const [detailProduct, setDetailProduct] = useState({
+    id: 1,
+    name: "Black Clover Devil T-Shirt",
+    price: "Rs. 799.00",
+    bg: "#2c2c2c",
+    img: "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&q=80",
+  });
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -299,6 +306,8 @@ export default function App() {
 
     console.log("Origin coords:", origin);
     setOpenSmallCard(true) 
+    setDetailProduct()
+    setDetailProduct(products.find((p) => p.id === id));
     console.log("Clicked add to cart for product id:", id);
   };
   const cartOnOpen = () => {
@@ -318,7 +327,7 @@ export default function App() {
     <>
 
       <SearchFile isOpen={openSearch} onClose={() => setOpenSearch(false)} />
-      <SmallCard open={openSmallCard} setOpen={setOpenSmallCard} />
+      <SmallCard open={openSmallCard} setOpen={setOpenSmallCard} productImage = {detailProduct.img} title={detailProduct.name} price={detailProduct.price}  />
       <div id="overlayForCartMenu"></div>
       <div id="cartMenu">
         <Cart onClose={cartOnClose} />

@@ -1,13 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import "../css/SmallCard.css";
 
-const productImage = "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80";
 
 const LERP = 0.1; // smoothing factor (0 = no movement, 1 = instant)
 const MAX_X = 10;
 const MAX_Y = 8;
 
-export default function SmallCard({ open, setOpen }) {
+export default function SmallCard({ open, setOpen,title, price,productImage }) {
   const [selectedSize, setSelectedSize] = useState("s");
   const [quantity, setQuantity] = useState(1);
   const [closing, setClosing] = useState(false);
@@ -122,8 +121,8 @@ export default function SmallCard({ open, setOpen }) {
               </svg>
             </button>
 
-            <h2 className="title">God Yato Noragami T-Shirt</h2>
-            <p className="price">Rs. 799.00</p>
+            <h2 className="title">{title}</h2>
+            <p className="price">{price}</p>
 
             <div>
               <p className="sizeLabel">Size</p>
