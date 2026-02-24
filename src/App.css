@@ -247,11 +247,13 @@
    gap: 5px;
    font-family: 'Inter', sans-serif;
    padding: 0;
+ 
  }
 
  .sort-control svg {
    width: 10px;
    height: 10px;
+   
  }
 
  .view-toggle {

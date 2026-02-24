@@ -1,16 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 
-const products = [
-  { id: 1, name: "Black Clover Devil T-Shirt", price: "Rs. 799.00", img: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400&q=80" },
-  { id: 2, name: "Eren Yeager Attack on Titan v3 Hoodie", price: "Rs. 1,599.00", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80" },
-  { id: 3, name: "Eren Yeager v4 Oversized Shirt", price: "Rs. 999.00", img: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=400&q=80" },
-  { id: 4, name: "God Yato Noragami T-Shirt", price: "Rs. 799.00", img: "https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400&q=80" },
-  { id: 5, name: "Demon Slayer Tanjiro Tee", price: "Rs. 849.00", img: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=400&q=80" },
-  { id: 6, name: "Death Note Ryuk Oversized", price: "Rs. 899.00", img: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=80" },
-  { id: 7, name: "Jujutsu Kaisen Hoodie", price: "Rs. 1,399.00", img: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&q=80" },
-  { id: 8, name: "One Piece Graphic Tee", price: "Rs. 749.00", img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=400&q=80" },
-];
-
 const SearchIcon = () => (
   <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
     <circle cx="10.5" cy="10.5" r="6.5" /><line x1="15.5" y1="15.5" x2="21" y2="21" />
@@ -63,7 +52,7 @@ function ProductCard({ product }) {
   );
 }
 
-function SearchModal({ isOpen, onClose }) {
+function SearchModal({ isOpen, onClose, products }) {
   const [query, setQuery] = useState("");
   const inputRef = useRef(null);
 
@@ -204,9 +193,9 @@ function SearchModal({ isOpen, onClose }) {
   );
 }
 
-export default function SearchFile({ isOpen, onClose}) {
+export default function SearchFile({ isOpen, onClose, products}) {
 
   return (
-      <SearchModal isOpen={isOpen} onClose={onClose} />
+      <SearchModal isOpen={isOpen} onClose={onClose} products = {products} />
   );
 }

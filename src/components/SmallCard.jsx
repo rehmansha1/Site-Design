@@ -177,5 +177,6 @@ export default function SmallCard({ open, setOpen,title, price,productImage }) {
         </div>
       </div>
     </div>
+    
   );
 }

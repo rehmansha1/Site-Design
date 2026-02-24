@@ -4,6 +4,7 @@ import Cart from "./components/Cart";
 import AttachedDropDown from "./components/AttachedDropDown";
 import SearchFile from "./components/SearchFile";
 import SmallCard from "./components/SmallCard";
+import SortDropdown from "./components/SortDropdown";
 
 // ── ICONS ──
 const SearchIcon = () => (
@@ -285,6 +286,7 @@ export default function App() {
     bg: "#2c2c2c",
     img: "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=500&q=80",
   });
+  const [closing, setClosing] = useState(false); 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -312,6 +314,8 @@ export default function App() {
   };
   const cartOnOpen = () => {
     const cart = document.getElementById("carty");
+        cart.style.visibility = "visible"
+
     cart.style.right = "0%";
     const overlay = document.getElementById("overlayForCartMenu");
     overlay.classList.add("appear");
@@ -319,16 +323,40 @@ export default function App() {
   const cartOnClose = () => {
     const cart = document.getElementById("carty");
     cart.style.right = "-50%";
+        cart.style.visibility = "hidden"
+
     const overlay = document.getElementById("overlayForCartMenu");
     overlay.classList.remove("appear");
   };
 
   return (
     <>
-
-      <SearchFile isOpen={openSearch} onClose={() => setOpenSearch(false)} />
+      <SearchFile isOpen={openSearch} onClose={() => setOpenSearch(false)} products={products}/>
       <SmallCard open={openSmallCard} setOpen={setOpenSmallCard} productImage = {detailProduct.img} title={detailProduct.name} price={detailProduct.price}  />
-      <div id="overlayForCartMenu"></div>
+      <div id="overlayForCartMenu" onClick={()=>{
+            const overlay = document.getElementById("overlayForCartMenu");
+                  document
+                    .querySelectorAll(".price-range-wrapper.AttachedDropDown")
+                    .forEach((e) => {
+                      if (e.classList.contains("visible") ) {
+                        e.classList.remove("visible");
+                      }
+                    });
+                    cartOnClose()
+    overlay.classList.remove("appear");
+      }}></div>
+      <div id="overlayForFilterPill" onClick={()=>{
+            const overlay = document.getElementById("overlayForFilterPill");
+                  document
+                    .querySelectorAll(".price-range-wrapper.AttachedDropDown")
+                    .forEach((e) => {
+                      if (e.classList.contains("visible") ) {
+                        e.classList.remove("visible");
+                      }
+                    });
+                    
+    overlay.classList.remove("appear");
+      }}></div>
       <div id="cartMenu">
         <Cart onClose={cartOnClose} />
       </div>
@@ -393,6 +421,7 @@ export default function App() {
         <h1 className="page-title">Products</h1>
 
         {/* Filter / Sort Row */}
+            
         <div className="filter-row">
           <div className="filter-left">
             <div className="filter-pill">
@@ -405,6 +434,8 @@ export default function App() {
                         e.classList.remove("visible");
                       }
                     });
+                        const overlay = document.getElementById("overlayForFilterPill");
+    overlay.classList.add("appear");
                   document
                     .querySelectorAll(
                       ".price-range-wrapper.AttachedDropDown",
@@ -414,7 +445,7 @@ export default function App() {
               >
                 Availability <ChevronDown />
               </div>
-              <AttachedDropDown component={"price"} />
+              <AttachedDropDown component={"price"} onClose={() => setClosing(false)} />
             </div>
             <div className="filter-pill">
               <div
@@ -426,6 +457,9 @@ export default function App() {
                         e.classList.remove("visible");
                       }
                     });
+                     const overlay = document.getElementById("overlayForFilterPill");
+    overlay.classList.add("appear");
+                    setClosing(true)
                   document
                     .querySelectorAll(
                       ".price-range-wrapper.AttachedDropDown",
@@ -436,14 +470,14 @@ export default function App() {
                 Price <ChevronDown />
               </div>
 
-              <AttachedDropDown component={"Availability"} />
+              <AttachedDropDown component={"Availability"} onClose={() => setClosing(false)} />
             </div>
           </div>
           <div className="filter-right">
             <span className="item-count">17 items</span>
-            <button className="sort-control">
-              Sort <ChevronDown />
-            </button>
+            <div>
+             <SortDropdown />
+            </div>
             <div className="view-toggle">
               <button
                 className={`view-btn ${activeView === "grid4" ? "active" : ""}`}
